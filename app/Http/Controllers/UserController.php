@@ -23,7 +23,7 @@ class UserController extends ResponseMessagesController
         $credentials = $request->only('login', 'password');
 
         if (Auth::attempt($credentials)) {
-            return response()->json(['message' => self::LOGIN_SUCCESS_MESSAGE], self::LOGIN_SUCCESS);
+            return response()->json(['message' => self::LOGIN_SUCCESS_MESSAGE], self::SUCCESS_CODE);
         }
 
         return response()->json(['message' => self::LOGIN_SUCCESS_MESSAGE], 401);
