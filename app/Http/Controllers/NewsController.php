@@ -149,4 +149,53 @@ class NewsController extends ResponseMessagesController
         }
     }
 
+    public function deleteNews(request $req){
+        $validate = Validator::make($req->all(),[
+            'token' => ['required'],
+            'id' => ['required'],
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+              'status' => false,
+                'errors' => $validate->errors(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $token = $req->input('token');
+        $id = $req->input('id');
+
+        #check admin token
+        $check = User::where('token', $token)->first();
+        if(!$check){
+            return response()->json([
+             'status' => false,
+             'message' => 'Invalid token'
+            ], Response::HTTP_FORBIDDEN);
+        }
+        # check if news is exists
+        $news = News::find($id);
+        if(!$news){
+            return response()->json([
+                'status' => false,
+                'message' => self::NEWS_NOT_FOUND
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        try{
+            Storage::delete('public/images'. $news->image);
+            $news->delete();
+
+            return response()->json([
+               'status' => true,
+               'message' => self::NEWS_SUCCESS_DEL,
+            ]);
+        }catch (Exception $e){
+            return response()->json([
+              'status' => false,
+              'message' => self::ERROR_MESSAGE,
+                'error' => $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }
