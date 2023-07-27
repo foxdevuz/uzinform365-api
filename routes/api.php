@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -10,6 +11,8 @@ Route::post('/login', [UserController::class, 'login']);
 Route::post('/addNews', [NewsController::class, 'addNews']);
 Route::post('/updateNews', [NewsController::class, 'updateNews']);
 Route::post('/deleteNews', [NewsController::class, 'deleteNews']);
+Route::post('/addCategory', [CategoryController::class, 'addCategory']);
+
 #get mesthods
 Route::any('/getNews', [NewsController::class, 'getNews']);
-Route::any('/getNews/{slug}', [NewsController::class, 'getOneNews']);
+Route::any('/getNews/{news:slug}', [NewsController::class, 'getOneNews']);

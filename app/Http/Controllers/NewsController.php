@@ -10,28 +10,16 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Symfony\Contracts\Service\Attribute\Required;
 
 class NewsController extends ResponseMessagesController
 {
-    protected function generateSlug($title)
-    {
-        $slug = Str::lower($title);
-        $slug = Str::replace(' ', '-', $slug);
-        $slug = Str::ascii($slug);
-        $slug = preg_replace('/[^a-z0-9-]/', '', $slug);
-
-        return $slug;
-    }
-
-    public function addNews(Request $req)
-    {
+    public function addNews(Request $req){
         $validator = Validator::make($req->all(), [
             'token'=>['required'],
             'title' => ['required'],
+            'category'=>['required'],
             'description' => ['required'],
-            'image' => ['required', 'image', 'max:4096'],
+            'image' => ['required', 'file', 'max:4096'],
         ]);
 
         if ($validator->fails()) {
@@ -45,6 +33,7 @@ class NewsController extends ResponseMessagesController
         $token = $req->input('token');
         $image = $req->file('image');
         $title = $req->input('title');
+        $category = $req->input('category');
         $slug = $this->generateSlug($title);
         $description = $req->input('description');
         #check admin token
@@ -62,6 +51,7 @@ class NewsController extends ResponseMessagesController
         try {
             News::create([
                 'title' => $title,
+                'category_slug' => $category,
                 'description' => $description,
                 'image' => $image->hashName(),
                 'slug' => $slug,
@@ -206,9 +196,8 @@ class NewsController extends ResponseMessagesController
         ], Response::HTTP_OK);
     }
 
-    public function getOneNews($slug){
-        $get = News::where('slug', $slug)->first();
-        if(!$get){
+    public function getOneNews(News $news){
+        if(!$news){
             return response()->json([
               'status' => false,
               'message' => self::NEWS_NOT_FOUND
@@ -216,7 +205,7 @@ class NewsController extends ResponseMessagesController
         }
         return response()->json([
             'status'=> true,
-            'response' => $get,
+            'response' => $news,
         ], Response::HTTP_OK);
     }
 }

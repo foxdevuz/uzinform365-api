@@ -3,9 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ResponseMessagesController extends Controller
 {
+    protected function generateSlug($title){
+        $slug = Str::lower($title);
+        $slug = Str::replace(' ', '-', $slug);
+        $slug = Str::ascii($slug);
+        $slug = preg_replace('/[^a-z0-9-]/', '', $slug);
+
+        return $slug;
+    }
+
+
     const SUCCESS_CODE = 200;
     const SERVER_ERROR = 200;
     const LOGIN_SUCCESS_MESSAGE = 'Login successful';
