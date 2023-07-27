@@ -81,3 +81,21 @@ API method: `getCategoryNews` <br />
 Url: `https://example.com/api/getCategoryNews` <br />
 Request method: `get` <br />
 Validated fields: `category` <br />
+
+
+10 Delete category
+> This method is used to delete category
+
+API method: `delCategory` <br />
+Url: `https://example.com/api/delCategory` <br />
+Request method: `post` <br />
+Validated fields: `id`,`token` <br />
+
+
+11 Update category
+> This method is used to update category
+
+API method: `updateCategory` <br />
+Url: `https://example.com/api/updateCategory` <br />
+Request method: `post` <br />
+Validated fields: `id`,`token`,`name` <br />
