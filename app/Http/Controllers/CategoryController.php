@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryNewsRequest;
+use App\Http\Resources\NewsResource;
 use App\Models\Category;
+use App\Models\News;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -54,5 +57,25 @@ class CategoryController extends ResponseMessagesController
                 'errors'=>$e->getMessage()
             ], Response::HTTP_BAD_REQUEST);
         }
+    }
+    public function getAllCategories(){
+        try{
+            $categories = Category::all();
+            return response()->json([
+              'status'=>'true',
+                'categories'=>$categories
+            ], Response::HTTP_OK);
+        }catch(\Exception $e){
+            return response()->json([
+              'status'=>false,
+              'message'=>self::ERROR_MESSAGE,
+                'errors'=>$e->getMessage()
+            ], Response::HTTP_BAD_REQUEST);
+        }
+    }
+    public function getCategoryNews(CategoryNewsRequest $validator){
+        $categorySlug = $validator->input('category');
+        $news = News::where('category_slug', $categorySlug)->get();
+        return NewsResource::collection($news);
     }
 }

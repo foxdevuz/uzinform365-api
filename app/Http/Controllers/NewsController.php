@@ -19,7 +19,7 @@ class NewsController extends ResponseMessagesController
             'title' => ['required'],
             'category'=>['required'],
             'description' => ['required'],
-            'image' => ['required', 'file', 'max:4096'],
+            'image' => ['required', 'file'],
         ]);
 
         if ($validator->fails()) {
@@ -79,7 +79,8 @@ class NewsController extends ResponseMessagesController
             'id' => ['required'],
             'title' => ['required'],
             'description' => ['required'],
-            'image' => ['required', 'image','max:4096'],
+            'category' => ['required'],
+            'image' => ['required', 'image'],
         ]);
 
         if ($validate->fails()) {
@@ -92,6 +93,7 @@ class NewsController extends ResponseMessagesController
         $token = $req->input('token');
         $image = $req->file('image');
         $title = $req->input('title');
+        $category = $req->input('category');
         $slug = $this->generateSlug($title);
         $description = $req->input('description');
         $id = $req->input('id');
@@ -121,6 +123,7 @@ class NewsController extends ResponseMessagesController
             $news->update([
                 'title' => $title,
                 'description' => $description,
+                'category' => $category,
                 'slug' => $slug,
                 'image'=>$image->hashName()
             ]);

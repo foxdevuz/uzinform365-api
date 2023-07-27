@@ -12,6 +12,6 @@ class Category extends Model
     protected $guarded = ['id'];
 
     public function news() {
-        return $this->hasMany(News::class);
+        return $this->hasMany(News::class, 'category_slug');
     }
 }

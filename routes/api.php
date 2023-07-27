@@ -16,3 +16,5 @@ Route::post('/addCategory', [CategoryController::class, 'addCategory']);
 #get mesthods
 Route::any('/getNews', [NewsController::class, 'getNews']);
 Route::any('/getNews/{news:slug}', [NewsController::class, 'getOneNews']);
+Route::any('/getAllCategories', [CategoryController::class, 'getAllCategories']);
+Route::any('/getCategoryNews', [CategoryController::class, 'getCategoryNews']);

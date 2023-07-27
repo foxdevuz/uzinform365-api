@@ -1,66 +1,83 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Documentation to use this code
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> First of all, you need to read the documentation carefully, always send header `Accept` `application/json`, to get response. 
 
-## About Laravel
+> You will be working with api methods and here how to use them.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+1 Login
+> This method is used for login adminstrators
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Api method: `login` <br />
+Url: `https://example.com/api/login` <br />
+Request method: `post` <br />
+Validated fields: `login` and `password` <br />
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2 Add News
+> This method is used to add news
 
-## Learning Laravel
+API method: `addNews` <br />
+Url: `https://example.com/api/addNews` <br />
+Request method: `post` <br />
+Validated fields: `token`,`title`,`category`,`description`,`image` <br />
+>> Token will be given when you login the adminstrator, 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+3 Update News
+> This method is used to update news
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+API method: `updateNews` <br />
+Url: `https://example.com/api/updateNews` <br />
+Request method: `post` <br />
+Validated fields: `token`,`id`,`title`,`category`,`description`,`image` <br />
+>> Token will be given when you login the adminstrator, 
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+4 Delete News
+> This method is used to delete news
 
-## Laravel Sponsors
+API method: `deleteNews` <br />
+Url: `https://example.com/api/deleteNews` <br />
+Request method: `post` <br />
+Validated fields: `token`,`id` <br />
+>> Token will be given when you login the adminstrator, 
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+5 Get News 
+> This method is used to get all news
 
-### Premium Partners
+API method: `getNews` <br />
+Url: `https://example.com/api/getNews` <br />
+Request method: `get` <br />
+Validated fields: `You don't have to send anything to pass validation` <br />
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+6 Get One News 
+> This method is used to get one news by it's slug
 
-## Contributing
+API method: `unknown` <br />
+Url: `https://example.com/api/getNews/{news:slug}` <br />
+Request method: `get` <br />
+Validated fields: `slug` <br />
+>> How to send request? it looks like https://example.com/api/getNews/yangilik-uchun-yasalgan-slug
+>this
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+7 Add Category 
+> This method is used to add category
 
-## Code of Conduct
+API method: `addCategory` <br />
+Url: `https://example.com/api/addCategory` <br />
+Request method: `post` <br />
+Validated fields: `token`,`name` <br />
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+8 Get all categories 
+> This method is used to get all category
 
-## Security Vulnerabilities
+API method: `getAllCategories` <br />
+Url: `https://example.com/api/getAllCategories` <br />
+Request method: `get` <br />
+Validated fields: `you don't have to send anything to validate` <br />
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+9 Get Category news
+> This method is used to get all news which with the same category
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+API method: `getCategoryNews` <br />
+Url: `https://example.com/api/getCategoryNews` <br />
+Request method: `get` <br />
+Validated fields: `category` <br />
