@@ -198,4 +198,25 @@ class NewsController extends ResponseMessagesController
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function getNews(){
+        $get = News::all();
+        return response()->json([
+            'news' => $get,
+        ], Response::HTTP_OK);
+    }
+
+    public function getOneNews($slug){
+        $get = News::where('slug', $slug)->first();
+        if(!$get){
+            return response()->json([
+              'status' => false,
+              'message' => self::NEWS_NOT_FOUND
+            ], Response::HTTP_NOT_FOUND);
+        }
+        return response()->json([
+            'status'=> true,
+            'response' => $get,
+        ], Response::HTTP_OK);
+    }
 }
