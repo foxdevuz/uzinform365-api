@@ -29,4 +29,11 @@ class UserController extends ResponseMessagesController
 
         return response()->json(['message' => self::LOGIN_SUCCESS_MESSAGE], 401);
     }
+
+    public function test(){
+        $ip = request()->ip();
+        $userAgent = request()->userAgent();
+
+        dd($ip, $userAgent,);
+    }
 }
