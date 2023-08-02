@@ -31,7 +31,7 @@ class UserController extends ResponseMessagesController
         if(!Hash::check($password, $login->password)){
             return response()->json(['message' => "Login or password is wrong"], 400);
         }
-        return response()->json(['message' => self::LOGIN_SUCCESS_MESSAGE], 200);
+        return response()->json(['message' => self::LOGIN_SUCCESS_MESSAGE, 'data'=>$login], 200);
     }
 
     public function test(){
