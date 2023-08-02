@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends ResponseMessagesController
@@ -20,13 +21,13 @@ class UserController extends ResponseMessagesController
             return response()->json(['message' => $validator->errors()], 400);
         }
 
-        $credentials = $request->only('login', 'password');
+        $login = request('login');
+        $password = request('password');
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            return response()->json(['message' => self::LOGIN_SUCCESS_MESSAGE,'data'=>$user], self::SUCCESS_CODE);
+        $login = User::where('login', $login)->first();
+        if(!$login && Hash::check($password, $login->password)){
+            return response()->json(['message' => "Login or password is wrong"], 400);
         }
-
         return response()->json(['message' => self::LOGIN_SUCCESS_MESSAGE], 401);
     }
 
