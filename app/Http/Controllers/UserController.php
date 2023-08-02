@@ -25,7 +25,10 @@ class UserController extends ResponseMessagesController
         $password = request('password');
 
         $login = User::where('login', $login)->first();
-        if(!$login && Hash::check($password, $login->password)){
+        if(!$login){
+            return response()->json(['message' => "Login or password is wrong"], 400);
+        }
+        if(Hash::check($password, $login->password)){
             return response()->json(['message' => "Login or password is wrong"], 400);
         }
         return response()->json(['message' => self::LOGIN_SUCCESS_MESSAGE], 401);
